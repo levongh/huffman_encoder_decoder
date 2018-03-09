@@ -37,11 +37,8 @@ void Encoder::encode() const
     std::ofstream outfile;
     openFileStreams(infile, outfile);
 
-    //! TODO std::fill / std::fill_n
     unsigned int freq[256];
-    for (int idx = 0; idx < 256; ++idx) {
-        freq[idx] = 0;
-    }
+    std::fill(freq, freq + 256, 0);
     char c;
     unsigned char ch;
     while (infile.get(c)) {
