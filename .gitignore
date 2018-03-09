@@ -1,0 +1,5 @@
+encode
+decode
+*.swp
+*.o
+*.txt
