@@ -48,7 +48,6 @@ void Decoder::decode() const
         }
     }
     std::queue<HuffmanTree*> q;
-    //Queue<HuffmanTree> q(3);
     HuffmanTree* tp = nullptr;
     for (unsigned idx = 0; idx < 256; ++idx) {
         if (freq[idx] > 0) {
@@ -91,6 +90,7 @@ void Decoder::decode() const
         outfile.put(static_cast<char>(ch2));
         --total;
     }
+    delete tp;
     infile.close();
     outfile.close();
 }

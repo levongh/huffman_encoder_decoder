@@ -48,7 +48,6 @@ void Encoder::encode() const
     infile.clear();
     infile.seekg(0);
 
-    //Queue<HuffmanTree> q(3);
     std::queue<HuffmanTree*> q;
     HuffmanTree* tp = nullptr;
     for (int idx = 0; idx < 256; ++idx) {
@@ -101,6 +100,7 @@ void Encoder::encode() const
     }
     ch2 = 2;
     writeHuffmanChar(ch2, outfile);
+    delete tp;
     infile.close();
     outfile.close();
 }
