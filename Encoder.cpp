@@ -85,7 +85,7 @@ void Encoder::encode() const
         uc = static_cast<unsigned char>(us);
         tp->huffman(tp->getRoot(), uc, "", huffmanTable[us]);
     }
-    unsigned char ch2;
+    unsigned char ch2 = ' ';
     while (infile.get(c)) {
         ch = c;
         for (unsigned i = 0; i < huffmanTable[ch].size(); ++i) {

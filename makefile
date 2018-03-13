@@ -1,5 +1,5 @@
 CC = g++
-CPPFLAGS = -O0 -std=c++14 -Wall -Werror -g
+CPPFLAGS = -O3 -std=c++14 -Wall -Werror
 
 COMMON_HEADERS = node.h HuffmanTree.h CoderBase.h 
 COMMON_SOURCES = HuffmanTree.cpp

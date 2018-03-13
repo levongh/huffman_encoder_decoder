@@ -21,6 +21,7 @@ void HuffmanTree::destroy(Node* node)
         destroy(node->m_left);
         destroy(node->m_right);
         delete node;
+        node = nullptr;
     }
 }
 
@@ -142,7 +143,7 @@ std::string HuffmanTree::printChar(Node* node) const
                 str = (*cp) + str;
             }
             str = '/' + str;
-            //TODO delete cp;
+            delete cp;
         } else {
             str = c;
         }
