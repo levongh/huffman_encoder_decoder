@@ -20,9 +20,15 @@ public:
 public:
     Node()
         : m_character('\0')
-          , m_frequency(0)
-          , m_left(nullptr)
-          , m_right(nullptr)
+        , m_frequency(0)
+        , m_left(nullptr)
+        , m_right(nullptr)
     {
+    }
+
+    ~Node()
+    {
+        delete m_left;
+        delete m_right;
     }
 };
