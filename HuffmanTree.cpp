@@ -17,7 +17,7 @@ HuffmanTree::~HuffmanTree()
 
 void HuffmanTree::destroy(Node* node)
 {
-    if (node != nullptr) {
+    if (nullptr != node) {
         destroy(node->m_left);
         destroy(node->m_right);
         delete node;
@@ -27,7 +27,7 @@ void HuffmanTree::destroy(Node* node)
 
 void HuffmanTree::print(std::ostream& os, Node* node, int level) const
 {
-    if (node != nullptr) {
+    if (nullptr != node) {
         print(os, node->m_right, level + 1);
         os << std::setw(level * WIDTH_UNIT)
            << printChar(node)
@@ -39,7 +39,7 @@ void HuffmanTree::print(std::ostream& os, Node* node, int level) const
 
 void HuffmanTree::print(Node* node, int level) const
 {
-    if (node != nullptr) {
+    if (nullptr != node) {
         print(node->m_right, level + 1);
         std::cout << std::setw(level * WIDTH_UNIT)
                   << printChar(node)
@@ -135,15 +135,14 @@ std::string HuffmanTree::printChar(Node* node) const
     if (node->m_left == nullptr && node->m_right) {
         unsigned char c = node->m_character;
         if (std::iscntrl(c) ||  c == 32) {
-            char* cp = new char;
+          std::string cp = std::string();
             for (int i = 0; i < 3; ++i) {
-                sprintf(cp, "%i", c % 8);
+                cp += std::to_string(static_cast<int>(c % 8));
                 c -= c % 8;
                 c /= 8;
-                str = (*cp) + str;
+                str = (cp) + str;
             }
             str = '/' + str;
-            delete cp;
         } else {
             str = c;
         }
