@@ -48,42 +48,44 @@ void Encoder::encode() const
     infile.clear();
     infile.seekg(0);
 
-    std::queue<HuffmanTree*> q;
-    HuffmanTree* tp = nullptr;
+    std::queue<Node*> nodes;
+
     for (int idx = 0; idx < 256; ++idx) {
         outfile.put(static_cast<unsigned char>(freq[idx] >> 24));
         outfile.put(static_cast<unsigned char>((freq[idx] >> 16) % 256));
         outfile.put(static_cast<unsigned char>((freq[idx] >> 8) % 256));
         outfile.put(static_cast<unsigned char>(freq[idx] % 256));
         if (freq[idx] > 0) {
-            tp = new HuffmanTree;
+            Node* tp = new Node;
             tp->setFreq(freq[idx]);
             tp->setChar(static_cast<unsigned char>(idx));
-            q.push(tp);
+            nodes.push(tp);
         }
 
     }
-    HuffmanTree* tp2 = nullptr;
-    HuffmanTree* tp3 = nullptr;
+    Node* tp = nullptr;
+    Node* tp2 = nullptr;
+    Node* tp3 = nullptr;
     do {
-        tp = q.front();
-        q.pop();
-        if (!q.empty()) {
-            tp2 = q.front();
-            q.pop();
-            tp3 = new HuffmanTree;
+        tp = nodes.front();
+        nodes.pop();
+        if (!nodes.empty()) {
+            tp2 = nodes.front();
+            nodes.pop();
+            tp3 = new Node;
             tp3->setFreq(tp->getFreq() + tp2->getFreq());
-            tp3->setLeft(tp->getRoot());
-            tp3->setRight(tp2->getRoot());
-            q.push(tp3);
+            tp3->setLeft(tp);
+            tp3->setRight(tp2);
+            nodes.push(tp3);
         }
-    } while (!q.empty());
+    } while (!nodes.empty());
+    HuffmanTree ht(tp);
     std::string huffmanTable[256];
     unsigned char uc;
     for (unsigned short us = 0; us < 256; ++us) {
         huffmanTable[us] = "";
         uc = static_cast<unsigned char>(us);
-        tp->huffman(tp->getRoot(), uc, "", huffmanTable[us]);
+        ht.huffman(ht.getRoot(), uc, "", huffmanTable[us]);
     }
     unsigned char ch2 = ' ';
     while (infile.get(c)) {
@@ -100,7 +102,6 @@ void Encoder::encode() const
     }
     ch2 = 2;
     writeHuffmanChar(ch2, outfile);
-    delete tp;
     infile.close();
     outfile.close();
 }

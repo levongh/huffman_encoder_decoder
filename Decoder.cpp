@@ -47,35 +47,36 @@ void Decoder::decode() const
             freq[idx] += ch * (j << (8 * k));
         }
     }
-    std::queue<HuffmanTree*> q;
-    HuffmanTree* tp = nullptr;
+    std::queue<Node*> nodes;
     for (unsigned idx = 0; idx < 256; ++idx) {
         if (freq[idx] > 0) {
-            tp = new HuffmanTree;
+            Node* tp = new Node;
             tp->setFreq(freq[idx]);
             tp->setChar(static_cast<unsigned char>(idx));
-            q.push(tp);
+            nodes.push(tp);
         }
     }
-    HuffmanTree* tp2 = nullptr;
-    HuffmanTree* tp3 = nullptr;
+    Node* tp = nullptr;
+    Node* tp2 = nullptr;
+    Node* tp3 = nullptr;
     do {
-        tp = q.front();
-        q.pop();
-        if (!q.empty()) {
-            tp2 = q.front();
-            q.pop();
-            tp3 = new HuffmanTree;
+        tp = nodes.front();
+        nodes.pop();
+        if (!nodes.empty()) {
+            tp2 = nodes.front();
+            nodes.pop();
+            tp3 = new Node;
             tp3->setFreq(tp->getFreq() + tp2->getFreq());
-            tp3->setLeft(tp->getRoot());
-            tp3->setRight(tp2->getRoot());
-            q.push(tp3);
+            tp3->setLeft(tp);
+            tp3->setRight(tp2);
+            nodes.push(tp3);
         }
-    } while (!q.empty());
+    } while (!nodes.empty());
 
+    HuffmanTree ht(tp);
     std::string str;
     unsigned char ch2;
-    unsigned int total = (*tp).getFreq();
+    unsigned int total = ht.getRoot()->getFreq();
     while (total > 0) {
         str = "";
         do {
@@ -86,11 +87,10 @@ void Decoder::decode() const
             if (ch == 1) {
                 str = str + '1';
             }
-        } while (!(*tp).findHuffmanCharacter(str, ch2));
+        } while (!ht.findHuffmanCharacter(str, ch2));
         outfile.put(static_cast<char>(ch2));
         --total;
     }
-    delete tp;
     infile.close();
     outfile.close();
 }
