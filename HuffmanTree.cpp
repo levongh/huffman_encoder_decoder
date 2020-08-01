@@ -5,9 +5,9 @@
 
 #define WIDTH_UNIT 5
 
-HuffmanTree::HuffmanTree()
+HuffmanTree::HuffmanTree(Node* root)
+    : m_root(root)
 {
-    m_root = new Node();
 }
 
 HuffmanTree::~HuffmanTree()
@@ -18,8 +18,6 @@ HuffmanTree::~HuffmanTree()
 void HuffmanTree::destroy(Node* node)
 {
     if (nullptr != node) {
-        destroy(node->m_left);
-        destroy(node->m_right);
         delete node;
         node = nullptr;
     }
@@ -148,46 +146,6 @@ std::string HuffmanTree::printChar(Node* node) const
         }
     }
     return str;
-}
-
-unsigned int HuffmanTree::getFreq() const
-{
-    return m_root->m_frequency;
-}
-
-void HuffmanTree::setFreq(unsigned int freq)
-{
-    m_root->m_frequency = freq;
-}
-
-unsigned char HuffmanTree::getChar() const
-{
-    return m_root->m_character;
-}
-
-void HuffmanTree::setChar(unsigned char ch)
-{
-    m_root->m_character = ch;
-}
-
-Node* HuffmanTree::getLeft() const
-{
-    return m_root->m_left;
-}
-
-void HuffmanTree::setLeft(Node* left)
-{
-    m_root->m_left = left;
-}
-
-Node* HuffmanTree::getRight() const
-{
-    return m_root->m_right;
-}
-
-void HuffmanTree::setRight(Node* right)
-{
-    m_root->m_right = right;
 }
 
 Node* HuffmanTree::getRoot() const

@@ -38,28 +38,19 @@ public:
 
     //@{ constructor/destructor
 public:
-    HuffmanTree();
+    HuffmanTree(Node* root = nullptr);
     ~HuffmanTree();
     //@}
 
     //@{ set/get functionalities
 public:
-    //!@brief frequency
-    unsigned int getFreq() const;
-    void setFreq(unsigned int freq);
-    //!@brief character
-    unsigned char getChar() const;
-    void setChar(unsigned char ch);
-
-    //!@brief left
-    Node* getLeft() const;
-    void setLeft(Node* left);
-    //!@brief right 
-    Node* getRight() const;
-    void setRight(Node* right);
-
     //!@brief root
     Node* getRoot() const;
+
+    void setRoot(Node* node)
+    {
+        m_root = node;
+    }
     //@}
 
     //@{ basic operators
