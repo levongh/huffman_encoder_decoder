@@ -63,8 +63,8 @@ void Encoder::encode() const
         }
 
     }
-    HuffmanTree* tp2;
-    HuffmanTree* tp3;
+    HuffmanTree* tp2 = nullptr;
+    HuffmanTree* tp3 = nullptr;
     do {
         tp = q.front();
         q.pop();

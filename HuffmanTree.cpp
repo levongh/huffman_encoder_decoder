@@ -87,10 +87,10 @@ bool HuffmanTree::operator>= (const HuffmanTree& tree) const
 
 void HuffmanTree::huffman(Node* node, unsigned char ch, const std::string& str, std::string& outStr) const
 {
-    if (node != nullptr) {
-        if ((node->m_left == nullptr) &&
-                (node->m_right == nullptr) &&
-                (node->m_character == ch)) {
+    if (nullptr != node) {
+        if ((nullptr == node->m_left) &&
+            (node->m_right == nullptr) &&
+            (node->m_character == ch)) {
             outStr = str;
         } else {
             huffman(node->m_left, ch, str + "0", outStr);
@@ -101,8 +101,8 @@ void HuffmanTree::huffman(Node* node, unsigned char ch, const std::string& str, 
 
 void HuffmanTree::huffmanList(Node* node, const std::string& str) const
 {
-    if (node != nullptr) {
-        if ((node->m_left == nullptr) && (node->m_right == nullptr)) {
+    if (nullptr != node) {
+        if ((nullptr == node->m_left) && (nullptr == node->m_right)) {
             std::cout << printChar(node) << " " << str << std::endl;
         } else {
             huffmanList(node->m_left, str + "0");
@@ -122,7 +122,7 @@ bool HuffmanTree::findHuffmanCharacter(const std::string& str, unsigned char& ch
             curr = curr->m_right;
         }
     }
-    if (curr->m_left == nullptr && curr->m_right == nullptr) {
+    if (nullptr == curr->m_left && nullptr == curr->m_right) {
         ch = curr->m_character;
         return true;
     }
@@ -132,7 +132,7 @@ bool HuffmanTree::findHuffmanCharacter(const std::string& str, unsigned char& ch
 std::string HuffmanTree::printChar(Node* node) const
 {
     std::string str = std::string();
-    if (node->m_left == nullptr && node->m_right) {
+    if (nullptr == node->m_left && node->m_right) {
         unsigned char c = node->m_character;
         if (std::iscntrl(c) ||  c == 32) {
           std::string cp = std::string();
