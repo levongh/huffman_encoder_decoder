@@ -26,6 +26,45 @@ public:
     {
     }
 
+    void setFreq(unsigned int freq) noexcept
+    {
+        m_frequency = freq;
+    }
+
+    unsigned int getFreq() const noexcept
+    {
+        return m_frequency;
+    }
+
+    void setChar(unsigned char ch)
+    {
+        m_character = ch;
+    }
+
+    unsigned char getChar() const noexcept
+    {
+        return m_character;
+    }
+
+    void setLeft(Node* left) noexcept
+    {
+        m_left = left;
+    }
+
+    Node* getLeft() const noexcept
+    {
+        return m_left;
+    }
+
+    void setRight(Node* right) noexcept
+    {
+        m_right = right;
+    }
+    Node* getRight() const noexcept
+    {
+        return m_right;
+    }
+
     ~Node()
     {
         delete m_left;
