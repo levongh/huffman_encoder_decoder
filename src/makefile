@@ -1,5 +1,7 @@
+include ../makefile
 CC = g++
-OBJDIR = ../obj
+OBJDIR = ../$(OBJ_DIR)/
+BINDIR = ../$(BIN_DIR)/
 CPPFLAGS = -O3 -std=c++14 -Wall -Werror
 
 COMMON_HEADERS = node.h HuffmanTree.h CoderBase.h 
@@ -31,9 +33,11 @@ $(ENCODER_EXECUTABLE): $(ENCODER_OBJECTS) $(COMMON_OBJECTS)
 
 all: $(ENCODER_EXECUTABLE) $(DECODER_EXECUTABLE)
 	mkdir -p $(OBJDIR)
+	mkdir -p $(BINDIR)
 	mv *.o $(OBJDIR)
-
+	mv $(DECODER_EXECUTABLE) $(BINDIR)
+	mv $(ENCODER_EXECUTABLE) $(BINDIR)
 
 clean:
-		rm -rf $(OBJDIR)/*.o
+		rm -rf $(OBJDIR)/*.o $(BINDIR)/*
 
